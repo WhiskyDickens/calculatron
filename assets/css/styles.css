@@ -1,0 +1,52 @@
+@import url('normalize.css');
+@import url('skeleton.css');
+
+/* Alerts */
+.alert {
+  padding: 1.5rem 1.75rem;
+  border-radius: 5px;
+}
+.alert.alert-success {
+  background: #c5e8c5;
+  color: #345a34;
+}
+.alert.alert-danger {
+  background: #ffe1e1;
+  color: #6b3535;
+}
+
+/* Headerr + nav */
+header {
+  position: sticky;
+  top: 0;
+  z-index: 9999;
+  background: #fff;
+  border-bottom: 1px solid #ccc;
+  padding: .5rem 0;
+  margin-bottom: 2rem
+}
+header .container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+header .container > * {
+  flex: auto
+}
+header nav ul {
+  list-style: none;
+  display: flex;
+  gap: 1rem;
+  margin: 0
+}
+header nav ul li {
+  margin: 0
+}
+header input {
+  margin-bottom: 0
+}
+
+/* Forms */
+form {
+  margin-bottom: 0
+}
