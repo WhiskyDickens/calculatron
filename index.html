@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Calculatron | Simon Taylor's Portfolio</title>
+    <link rel="stylesheet" href="assets/css/styles.css" />
+    <style>
+      html,
+      body {
+        height: 100vh;
+        background: #ccc;
+        padding: 2rem;
+      }
+      section {
+        max-width: 900px;
+        background: #fff;
+        margin: auto;
+        border-radius: 5px;
+        padding: 2rem;
+      }
+      section h3 {
+        margin-top: 0;
+      }
+      section .grid {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+      }
+      section .grid .cell {
+        flex: 25%;
+        text-align: center;
+        padding: 1rem;
+      }
+      section .grid .cell img {
+        max-width: 100%;
+      }
+    </style>
+  </head>
+  <body>
+    <section>
+      <h5>Select a version:</h5>
+      <div class="grid">
+        <div class="cell">
+          <a href="php/index.php">
+            <img src="assets/img/php.png" alt="Calculatron PHP" />
+          </a>
+        </div>
+      </div>
+    </section>
+  </body>
+</html>
