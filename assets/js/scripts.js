@@ -36,6 +36,36 @@ document.querySelectorAll("form").forEach((form) => {
 });
 
 /**
+ * Allows addition of a new variable in the expression calculator
+ */
+const varLetters = "0abcdefghijklmnopqrstuvwxyz".split("");
+document.querySelectorAll(".add-variable").forEach((addVariableButton) => {
+  addVariableButton.addEventListener("click", (e) => {
+    const variablesContainer = addVariableButton.parentElement;
+    // Grab the last field in the form
+    const allInputs = variablesContainer.querySelectorAll("label");
+    const lastLabel = allInputs[allInputs.length - 1];
+    const lastInput = lastLabel.childNodes[1];
+    const newFieldNameID = lastInput.getAttribute("name").replace(/\D/g, "");
+    const lastVarLetter = lastLabel.childNodes[0].textContent
+      .replace(/\s/g, "")
+      .split("")[0];
+    const newVarLetter = varLetters[varLetters.indexOf(lastVarLetter) + 1];
+    // Create new input field
+    let newInputField = lastInput.cloneNode();
+    newInputField.setAttribute("name", `var-${newVarLetter}`);
+    newInputField.setAttribute("value", "");
+    // Create new input group
+    let newInputGroup = lastLabel.cloneNode();
+    newInputGroup.innerText = `${newVarLetter} = `;
+    newInputGroup.setAttribute("for", `var-${newVarLetter}`);
+    newInputGroup.append(newInputField);
+    newInputGroup.classList.remove("hide");
+    variablesContainer.insertBefore(newInputGroup, lastLabel.nextSibling);
+  });
+});
+
+/**
  * Allows addition of more calculation fields to a form
  */
 document.querySelectorAll(".add-field").forEach((addFieldButton) => {
