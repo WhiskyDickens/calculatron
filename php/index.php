@@ -30,6 +30,18 @@
       </div>
     </header>
 
+    <!-- Start: Free text -->
+    <section id="basics" class="container">
+      <h4>Typed Expression</h4>
+      <p>Enter your expression below</p>
+      <form action="calculate.php?free-text" method="POST">
+        <textarea name="calculation" placeholder="( (2 + ( 30 / 4) ) * 5 ) + 150" required></textarea>
+        <button type="submit">Calculate</button>
+        <div class="response"></div>
+      </form>
+    </section>
+    <!-- End: Free text -->
+
     <!-- Start: Basics -->
     <section id="basics" class="container">
       <h4>Basics</h4>
@@ -44,7 +56,7 @@
       </form>
 
     </section>
-    <!-- End: Percentages -->
+    <!-- End: Basics -->
 
     <hr>
 
