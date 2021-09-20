@@ -4,8 +4,15 @@
    * Process calculations (return result via ajax)
    */
 
-   // Require global functions file
-   include 'functions.php';
+    // Require global functions file
+    include 'functions.php';
+
+    // Include the expression parser library
+    
+    include APP_PATH . 'vendor/math-parser-master/vendor/autoload.php';
+    use MathParser\StdMathParser;
+    use MathParser\Interpreting\Evaluator;
+    $parser = new StdMathParser();
 
    // Parse submitted data
    $request = parse_raw_http_request($_REQUEST);
@@ -14,6 +21,20 @@
    $invalid = false;
    $result = false;
    $message = NULL;
+
+   // Free-text calculation
+   if(isset($_GET['free-text'])) {
+    // Check for missing or empty required fields 
+    $invalid = validate_inputs($request, ['calculation']);
+     // If required fields present, do the calculation
+     if(!$invalid) {
+      // Return results
+      $result = $parser->parse($request['calculation']);
+      $calculation = $request['calculation'];
+      $question = "What is $calculation";
+      $answer = $result;
+     }
+   }
 
    // What is num-1 + num-2...
    if(isset($_GET['add'])) {
