@@ -12,7 +12,6 @@
     include APP_PATH . 'vendor/math-parser-master/vendor/autoload.php';
     use MathParser\StdMathParser;
     use MathParser\Interpreting\Evaluator;
-    $parser = new StdMathParser();
 
    // Parse submitted data
    $request = parse_raw_http_request($_REQUEST);
@@ -28,10 +27,36 @@
     $invalid = validate_inputs($request, ['calculation']);
      // If required fields present, do the calculation
      if(!$invalid) {
-      // Return results
-      $result = $parser->parse($request['calculation']);
+      // Instantiate expression parser
+      $parser = new StdMathParser();
+      $evaluator = new Evaluator();
+      // Generate an abstract syntax tree
+      $AST = $parser->parse($request['calculation']);
+       // Check for variables
+      $variables = [];
+      foreach($request as $key => $value) {
+        // Grab all fields with "var-" in the name, excluding the placeholder var - these are our variables
+        if(strpos($key, "var-") !== false && $key !== "var-0") {
+          $variables[str_replace("var-", "", $key)] = intval($value);
+        }
+      }
       $calculation = $request['calculation'];
       $question = "What is $calculation";
+      // If there are variables, apply them to the evaluator
+      if(!empty($variables)) {
+        $evaluator->setVariables($variables);
+        // Append variables to calculation
+        $question .= ", where ";
+        foreach($variables as $key => $value) {
+          $question .= "$key = $value and ";
+          // Replace calculation string variable letters with their values
+          $calculation = str_replace($key, $value, $calculation);
+        }
+        // Remove last " and " from question
+        $question = substr($question, 0, -5);
+      }
+      // Evaluate the expression:
+      $result = $AST->accept($evaluator);
       $answer = $result;
      }
    }
@@ -70,7 +95,7 @@
      // If required fields present, do the calculation
      if(!$invalid) {
       // (x / 100) * y
-      $result = ($request['x'] / 100) *  $request['y'];
+      $result = (intval($request['x']) / 100) * intval($request['y']);
       $question = "What is {$request['x']}% of {$request['y']}?";
       $calculation = "({$request['x']}/100) * {$request['y']} = $result";
       $answer = "$result";
