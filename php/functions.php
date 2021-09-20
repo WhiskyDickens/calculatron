@@ -20,7 +20,7 @@
     // Get field keys
     $fields = [];
     foreach($submission[1] as $key => $field_name) {
-      $fields[$field_name] = $submission[2][$key];
+      $fields[$field_name] = strpos($submission[2][$key], "---") === false ? $submission[2][$key] : "";
     }
     return $fields;
   }
