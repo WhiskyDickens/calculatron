@@ -4,6 +4,8 @@
    * Hold global functions for the application
    */
 
+   require_once('config.php');
+
    /**
     * Parse JS fetch post (Raw WebKitFormBoundary data)
     *
@@ -13,7 +15,7 @@
   function parse_raw_http_request(array &$data) {
     // read incoming data
     $input = file_get_contents('php://input');
-    preg_match_all('/name="(.*)"\s+(\d+)/', $input, $submission);
+    preg_match_all('/name="(.*)"\s+(.*)/', $input, $submission);
     unset($submission[0]);
     // Get field keys
     $fields = [];
@@ -50,3 +52,5 @@
       return false;
     }
   }
+
+  
