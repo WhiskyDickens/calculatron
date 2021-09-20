@@ -2,9 +2,11 @@
 
 Calculatron is a simple web application that helps users with everyday calculations.
 
-From free-type mathematical expressions, or a simple "X is what % of Y", and even a mortgage calculator.
+From free-type mathematical expression calculations, to simple "X is what % of Y", and even fully-built mortgage, tip & take-home salary calculators.
 
-The application is written in many different language to make it easy for devs to implement it into their application or just install it in their localhost for personal use/enhancement:
+The application is written in many differents language to make it easy for anyone to use. Devs can implement it into their own projects or just install it in their localhost for personal use/enhancement.
+
+Current progress:
 
 - PHP (in progress)
 - Javascript (in progress)
@@ -18,9 +20,10 @@ The application is written in many different language to make it easy for devs t
 
 ### PHP
 
-1. Init math expression parser
-   `cd php/vendor/math-parser-master`
-   `composer install`
+Initiate the math expression parser libary:
+
+- `cd php/vendor/math-parser-master`
+- `composer install`
 
 Enjoy!
 
