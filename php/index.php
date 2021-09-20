@@ -32,21 +32,30 @@
 
     <!-- Start: Free text -->
     <section id="basics" class="container">
-      <h4>Typed Expression</h4>
+      <h4>Expression</h4>
       <p>Enter your expression below</p>
       <form action="calculate.php?free-text" method="POST">
-        <textarea name="calculation" placeholder="( (2 + ( 30 / 4) ) * 5 ) + 150" required></textarea>
+        <div class="variables">
+          <strong>Variables</strong>
+          <label for="var-0" class="hide">
+            0 = <input type="number" step="0.01" name="var-0">
+          </label>
+          <button type="button" class="add-variable">Add Variable</button>
+        </div>
+        <textarea name="calculation" placeholder="2cos(2) + (2+(30/4)*5) + 150 + sqrt(9)" rows="5" style="height:100px;width:100%" required></textarea>
         <button type="submit">Calculate</button>
         <div class="response"></div>
       </form>
     </section>
     <!-- End: Free text -->
 
+    <hr>
+
     <!-- Start: Basics -->
     <section id="basics" class="container">
       <h4>Basics</h4>
       
-      <h5>Addition</h5>
+      <strong>Addition</strong>
       <form action="calculate.php?add" method="POST">
         <input type="number" step="0.01" name="num-1" required><span class='symbol'> + </span>
         <input type="number" step="0.01" name="num-2" required>
