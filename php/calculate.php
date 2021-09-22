@@ -62,11 +62,19 @@
    }
 
    // What is num-1 + num-2...
-   if(isset($_GET['add'])) {
+   if(isset($_GET['basic'])) {
     // Check for missing or empty required fields 
     $invalid = validate_inputs($request, ['num-1', 'num-2']);
      // If required fields present, do the calculation
      if(!$invalid) {
+       // Get the operator
+      $operator = $request['operator'];
+      $operator_words = [
+        "+" => "plus",
+        "-" => "minus",
+        "*" => "times",
+        "/" => "divided by"
+      ];
       // Only keep request params that contain our calculation numbers
       foreach($request as $key => $value) {
         if(strpos($key, "num-") === false) {
@@ -78,11 +86,25 @@
       $question = "What is ";
       $calculation = "";
       foreach($request as $key => $value) {
-        $result += $value;
-        $question .= "$value plus ";
-        $calculation .= "$value + ";
+        // Set first value
+        if($result === 0) {
+          $result = $value;
+        } else {
+          // Calculate
+          if($operator === "+") {
+            $result += $value;
+          } elseif($operator === "-") {
+            $result -= $value;
+          } elseif($operator === "*") {
+            $result = $result * $value;
+          } elseif($operator === "/") {
+            $result = $result / $value;
+          }
+        }
+        $question .= "$value {$operator_words[$operator]} ";
+        $calculation .= "$value $operator ";
       }
-      $question = substr($question, 0, -6) ."?"; // Remove last " plus " from question string
+      $question = substr($question, 0, -(strlen($operator_words[$operator])+2)) ."?"; // Remove last " plus " from question string
       $calculation = substr($calculation, 0, -2) ." = $result"; // Remove last " + " from calculation string
       $answer = $result;
      }
@@ -97,7 +119,7 @@
       // (x / 100) * y
       $result = (intval($request['x']) / 100) * intval($request['y']);
       $question = "What is {$request['x']}% of {$request['y']}?";
-      $calculation = "({$request['x']}/100) * {$request['y']} = $result";
+      $calculation = "({$request['x']}/100)*{$request['y']} = $result";
       $answer = "$result";
      }
    }
@@ -111,7 +133,7 @@
       // (x / y) * 100
       $result = ($request['x'] / $request['y']) * 100;
       $question = "{$request['x']} is what % of {$request['y']}?";
-      $calculation = "({$request['x']}/{$request['y']}) * 100 = $result";
+      $calculation = "({$request['x']}/{$request['y']})*100 = $result";
       $answer = "$result%";
      }
    }
@@ -128,9 +150,7 @@
       $calculation = "{$request['x']}/({$request['y']}/100) = $result";
       $answer = "$result";
      }
-   }
-
-   
+   }   
 
    // If there's an error, set response code and set response message
    if($invalid) {
