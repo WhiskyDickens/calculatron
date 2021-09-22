@@ -54,7 +54,7 @@ document.querySelectorAll(".add-variable").forEach((addVariableButton) => {
     // Create new input field
     let newInputField = lastInput.cloneNode();
     newInputField.setAttribute("name", `var-${newVarLetter}`);
-    newInputField.setAttribute("value", "");
+    newInputField.value = "";
     // Create new input group
     let newInputGroup = lastLabel.cloneNode();
     newInputGroup.innerText = `${newVarLetter} = `;
@@ -80,7 +80,7 @@ document.querySelectorAll(".add-field").forEach((addFieldButton) => {
     let newInputField = lastInput.cloneNode();
     let newInputSymbol = symbol.cloneNode("true");
     newInputField.setAttribute("name", newFieldName);
-    newInputField.setAttribute("value", "");
+    newInputField.value = "";
     newInputField.removeAttribute("required");
     parentForm.insertBefore(newInputField, lastInput.nextSibling);
     parentForm.insertBefore(newInputSymbol, lastInput.nextSibling);
