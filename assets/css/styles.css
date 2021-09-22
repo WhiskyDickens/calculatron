@@ -1,6 +1,11 @@
 @import url('normalize.css');
 @import url('skeleton.css');
 
+/* Global */
+html {
+  scroll-behavior: smooth;
+}
+
 /* Fonts */
 body {
   font-size: 15px;
