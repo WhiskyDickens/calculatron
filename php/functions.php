@@ -15,12 +15,15 @@
   function parse_raw_http_request(array &$data) {
     // read incoming data
     $input = file_get_contents('php://input');
-    preg_match_all('/name="(.*)"\s+(.*)/', $input, $submission);
+    preg_match_all('/name="(.*)"\s+(.*)\r/', $input, $submission);
     unset($submission[0]);
     // Get field keys
     $fields = [];
-    foreach($submission[1] as $key => $field_name) {
-      $fields[$field_name] = strpos($submission[2][$key], "---") === false ? $submission[2][$key] : "";
+    foreach($submission[1] as $key => $field_name) {;
+      // Only grab useable fields
+      if(strpos($submission[2][$key], "----") === false) {
+        $fields[$field_name] = $submission[2][$key];
+      }
     }
     return $fields;
   }
